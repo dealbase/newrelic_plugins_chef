@@ -4,42 +4,56 @@ verify_ruby 'Memcached - Ruby Plugin'
 # check required attributes
 verify_attributes do
   attributes [
-    'node[:newrelic][:license_key]', 
+    'node[:newrelic][:memcached_ruby][:download_url]',
     'node[:newrelic][:memcached_ruby][:install_path]',
-    'node[:newrelic][:memcached_ruby][:user]'
+    'node[:newrelic][:memcached_ruby][:plugin_path]',
+    'node[:newrelic][:memcached_ruby][:version]'
   ]
 end
 
-verify_license_key node[:newrelic][:license_key]
+user = node[:users].first
 
 install_plugin 'newrelic_memcached_ruby_plugin' do
   plugin_version   node[:newrelic][:memcached_ruby][:version]
   install_path     node[:newrelic][:memcached_ruby][:install_path]
   plugin_path      node[:newrelic][:memcached_ruby][:plugin_path]
   download_url     node[:newrelic][:memcached_ruby][:download_url] 
-  user             node[:newrelic][:memcached_ruby][:user]
+  user             user
 end
 
-# newrelic template
-template "#{node[:newrelic][:memcached_ruby][:plugin_path]}/config/newrelic_plugin.yml" do
-  source 'memcached_ruby/newrelic_plugin.yml.erb'
-  action :create
-  owner node[:newrelic][:memcached_ruby][:user]
-  notifies :restart, 'service[newrelic-memcached-ruby-plugin]'
-end
+node[:engineyard][:environment][:apps].each do |app|
 
-# install bundler gem and run 'bundle install'
-bundle_install do
-  path node[:newrelic][:memcached_ruby][:plugin_path]
-  user node[:newrelic][:memcached_ruby][:user]
-end
+  app_name = app[:name]
+  app_license_key app: app
+  license_key = node[:newrelic][app_name][:license_key]
 
-# install init.d script and start service
-plugin_service 'newrelic-memcached-ruby-plugin' do
-  daemon          './newrelic_memcached_agent'
-  daemon_dir      node[:newrelic][:memcached_ruby][:plugin_path]
-  plugin_name     'Memcached - Ruby'
-  plugin_version  node[:newrelic][:memcached_ruby][:version]
-  user            node[:newrelic][:memcached_ruby][:user]
-  run_command     'bundle exec'
+  if license_key
+
+    # newrelic template
+    template "#{node[:newrelic][:memcached_ruby][:plugin_path]}/config/newrelic_plugin.yml" do
+      source 'memcached_ruby/newrelic_plugin.yml.erb'
+      action :create
+      owner node[:newrelic][:memcached_ruby][:user]
+      notifies :restart, 'service[newrelic-memcached-ruby-plugin]'
+      variables({
+                    :app_name => app_name,
+                    :license_key => license_key
+                })
+    end
+
+    bundle_install do
+      path node[:newrelic][:memcached_ruby][:plugin_path]
+      user user
+    end
+
+    # install init.d script and start service
+    plugin_service 'newrelic-memcached-ruby-plugin' do
+      daemon          './newrelic_memcached_agent'
+      daemon_dir      node[:newrelic][:memcached_ruby][:plugin_path]
+      plugin_name     'Memcached - Ruby'
+      plugin_version  node[:newrelic][:memcached_ruby][:version]
+      user            user
+      run_command     'bundle exec'
+    end
+  end
 end

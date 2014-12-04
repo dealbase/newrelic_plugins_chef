@@ -21,20 +21,10 @@ user = node[:users].first
 node[:engineyard][:environment][:apps].each do |app|
 
   app_name = app[:name]
-  license_key = nil
-
-  app[:components].each do |component|
-    if component[:collection]
-      component[:collection].each do |add_on|
-        if add_on[:name] =~ /New Relic/
-          license_key = add_on[:config][:vars][:license_key]
-        end
-      end
-    end
-  end
+  app_license_key app: app
+  license_key = node[:newrelic][app_name][:license_key]
 
   if license_key
-    verify_license_key license_key
 
     case node[:instance_role]
       when "solo", "app_master"
@@ -57,7 +47,8 @@ node[:engineyard][:environment][:apps].each do |app|
           variables({
                         :app_name => app_name,
                         :uri => "redis://#{node[:db_host]}/#{node[:redis_yml][:app2redis_database][app_name]}",
-                        :namespace => node[:newrelic][:sidekiq][:namespace]
+                        :namespace => node[:newrelic][:sidekiq][:namespace],
+                        :license_key => license_key
                     })
         end
 
