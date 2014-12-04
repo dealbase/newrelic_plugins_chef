@@ -35,7 +35,8 @@ node[:engineyard][:environment][:apps].each do |app|
     template "#{node[:newrelic][:memcached_ruby][:plugin_path]}/config/newrelic_plugin.yml" do
       source 'memcached_ruby/newrelic_plugin.yml.erb'
       action :create
-      owner node[:newrelic][:memcached_ruby][:user]
+      owner user
+      group user
       notifies :restart, 'service[newrelic-memcached-ruby-plugin]'
       variables({
                     :app_name => app_name,
