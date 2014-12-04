@@ -9,13 +9,13 @@ verify_attributes do
                  'node[:redis_yml][:app2redis_database]',
                  'node[:db_host]',
                  'node[:users]',
-                 'node[:apps]'
+                 'node[:engineyard][:environment][:apps]'
              ]
 end
 
 user = node[:users].first
 
-node[:apps].each do |app|
+node[:engineyard][:environment][:apps].each do |app|
 
   app_name = app[:name]
 
