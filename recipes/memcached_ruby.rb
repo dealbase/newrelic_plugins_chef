@@ -7,7 +7,8 @@ verify_attributes do
     'node[:newrelic][:memcached_ruby][:download_url]',
     'node[:newrelic][:memcached_ruby][:install_path]',
     'node[:newrelic][:memcached_ruby][:plugin_path]',
-    'node[:newrelic][:memcached_ruby][:version]'
+    'node[:newrelic][:memcached_ruby][:version]',
+    'node[:environment][:framework_env]'
   ]
 end
 
@@ -40,6 +41,7 @@ node[:engineyard][:environment][:apps].each do |app|
       notifies :restart, 'service[newrelic-memcached-ruby-plugin]'
       variables({
                     :app_name => app_name,
+                    :environment => node[:environment][:framework_env],
                     :license_key => license_key
                 })
     end
@@ -50,7 +52,7 @@ node[:engineyard][:environment][:apps].each do |app|
     end
 
     # install init.d script and start service
-    plugin_service 'newrelic-memcached-ruby-plugin' do
+    plugin_service "newrelic-memcached-ruby-plugin-#{app_name}" do
       daemon          './newrelic_memcached_agent'
       daemon_dir      node[:newrelic][:memcached_ruby][:plugin_path]
       plugin_name     'Memcached - Ruby'

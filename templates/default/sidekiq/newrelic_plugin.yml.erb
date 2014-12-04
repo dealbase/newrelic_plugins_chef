@@ -13,6 +13,6 @@ newrelic:
 agents:
   sidekiq:
     -
-      name: '<%= @app_name %>'
+      name: '<%= "#{@app_name} #{@environment}" %>'
       uri: '<%= @uri %>'
       namespace: '<%= @namespace %>'

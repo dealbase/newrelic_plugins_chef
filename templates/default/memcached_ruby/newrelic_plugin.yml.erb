@@ -14,6 +14,6 @@ newrelic:
 agents:
   memcached:
     -
-      name: '<%= @app_name %>'
+      name: '<%= "#{@app_name} #{@environment}" %>'
       endpoint: 'localhost'
       port: 11211

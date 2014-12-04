@@ -12,7 +12,8 @@ verify_attributes do
                  'node[:redis_yml][:app2redis_database]',
                  'node[:db_host]',
                  'node[:users]',
-                 'node[:engineyard][:environment][:apps]'
+                 'node[:engineyard][:environment][:apps]',
+                 'node[:environment][:framework_env]'
              ]
 end
 
@@ -46,6 +47,7 @@ node[:engineyard][:environment][:apps].each do |app|
           notifies :restart, "service[newrelic-sidekiq-plugin-#{app_name}]"
           variables({
                         :app_name => app_name,
+                        :environment => node[:environment][:framework_env],
                         :uri => "redis://#{node[:db_host]}/#{node[:redis_yml][:app2redis_database][app_name]}",
                         :namespace => node[:newrelic][:sidekiq][:namespace],
                         :license_key => license_key
