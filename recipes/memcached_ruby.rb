@@ -24,7 +24,9 @@ end
 node[:engineyard][:environment][:apps].each do |app|
 
   app_name = app[:name]
-  app_license_key app: app
+  app_license_key do
+    app app
+  end
   license_key = node[:newrelic][app_name][:license_key]
 
   if license_key
