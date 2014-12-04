@@ -5,6 +5,8 @@ define :install_plugin do
   # create install path
   directory params[:install_path] do
     owner params[:user]
+    group params[:user]
+    mode 0744
     action :create
     recursive true
   end
@@ -14,6 +16,8 @@ define :install_plugin do
     source params[:download_url]
     action :create_if_missing
     owner params[:user]
+    group params[:user]
+    mode 0744
     notifies :delete, "directory[#{params[:plugin_path]}]", :immediately
     notifies :create, "directory[#{params[:plugin_path]}]", :immediately
     notifies :run, "bash[extract #{params[:name]} resource]", :immediately
@@ -24,6 +28,8 @@ define :install_plugin do
     action :create
     recursive true
     owner params[:user]
+    group params[:user]
+    mode 0744
   end
 
   # extract plugin tar file to params[:plugin_path]
