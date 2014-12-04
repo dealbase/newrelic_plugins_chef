@@ -30,10 +30,7 @@ default[:newrelic][:sidekiq][:version] = "1.1.0"
 default[:newrelic][:sidekiq][:download_url] = "https://github.com/secondimpression/newrelic_sidekiq_agent/archive/v#{node[:newrelic][:sidekiq][:version]}.tar.gz"
 default[:newrelic][:sidekiq][:install_path] = "/data/newrelic_plugins"
 default[:newrelic][:sidekiq][:plugin_path] = "#{node[:newrelic][:sidekiq][:install_path]}/sidekiq"
-default[:newrelic][:sidekiq][:uri] = "redis://#{node[:db_host]}/0"
 default[:newrelic][:sidekiq][:namespace] = "sq"
-default[:newrelic][:sidekiq][:app_name] = "barganto"
-default[:newrelic][:sidekiq][:user] = "deploy"
 
 # wikipedia example ruby plugin attributes
 default[:newrelic][:wikipedia_example_ruby][:version] = "1.0.3"
