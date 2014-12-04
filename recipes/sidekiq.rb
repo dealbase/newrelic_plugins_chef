@@ -4,7 +4,6 @@ verify_ruby 'Sidekiq - Ruby Plugin'
 # check required attributes
 verify_attributes do
   attributes [
-                 'node[:engineyard][:environment][:newrelic_key]',
                  'node[:newrelic][:sidekiq][:install_path]',
                  'node[:newrelic][:sidekiq][:app_name]',
                  'node[:newrelic][:sidekiq][:uri]',

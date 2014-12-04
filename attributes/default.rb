@@ -13,36 +13,17 @@ default[:newrelic][:mysql][:install_path] = "/data/newrelic_plugins"
 default[:newrelic][:mysql][:plugin_path] = "#{node[:newrelic][:mysql][:install_path]}/newrelic_mysql_plugin"
 default[:newrelic][:mysql][:java_options] = '-Xmx128m'
 
-# memcached (java) plugin attributes
-default[:newrelic][:memcached_java][:version] = "2.0.1"
-default[:newrelic][:memcached_java][:user] = "root"
-default[:newrelic][:memcached_java][:download_url] = "https://raw.github.com/newrelic-platform/newrelic_memcached_java_plugin/master/dist/newrelic_memcached_plugin-#{node[:newrelic][:memcached_java][:version]}.tar.gz"
-default[:newrelic][:memcached_java][:install_path] = "/data/newrelic_plugins"
-default[:newrelic][:memcached_java][:plugin_path] = "#{node[:newrelic][:memcached_java][:install_path]}/newrelic_memcached_java_plugin"
-default[:newrelic][:memcached_java][:java_options] = '-Xmx128m'
-
 # example plugin attributes
 default[:newrelic][:example][:version] = "1.0.1"
 default[:newrelic][:example][:download_url] = "https://github.com/newrelic-platform/newrelic_example_plugin/archive/release/#{node[:newrelic][:example][:version]}.tar.gz"
 default[:newrelic][:example][:install_path] = "/data/newrelic_plugins"
 default[:newrelic][:example][:plugin_path] = "#{node[:newrelic][:example][:install_path]}/newrelic_example_plugin"
 
-# f5 plugin attributes
-default[:newrelic][:f5][:version] = "1.0.16"
-default[:newrelic][:f5][:install_path] = "/data/newrelic_plugins"
-default[:newrelic][:f5][:plugin_path] = "#{node[:newrelic][:f5][:install_path]}/newrelic_f5_plugin"
-
 # memcached (ruby) plugin attributes
 default[:newrelic][:memcached_ruby][:version] = "1.0.1"
 default[:newrelic][:memcached_ruby][:download_url] = "https://github.com/newrelic-platform/newrelic_memcached_plugin/archive/release/#{node[:newrelic][:memcached_ruby][:version]}.tar.gz"
 default[:newrelic][:memcached_ruby][:install_path] = "/data/newrelic_plugins"
 default[:newrelic][:memcached_ruby][:plugin_path] = "#{node[:newrelic][:memcached_ruby][:install_path]}/newrelic_memcached_ruby_plugin"
-
-# rackspace load balancers attributes
-default[:newrelic][:rackspace_load_balancers][:version] = "1.2.0"
-default[:newrelic][:rackspace_load_balancers][:download_url] = "https://github.com/newrelic-platform/newrelic_rackspace_load_balancers_plugin/archive/#{node[:newrelic][:rackspace_load_balancers][:version]}.tar.gz"
-default[:newrelic][:rackspace_load_balancers][:install_path] = "/data/newrelic_plugins"
-default[:newrelic][:rackspace_load_balancers][:plugin_path] = "#{node[:newrelic][:rackspace_load_balancers][:install_path]}/newrelic_rackspace_load_balancers_plugin"
 
 # sidekiq plugin attributes
 default[:newrelic][:sidekiq][:version] = "1.1.0"
@@ -53,12 +34,6 @@ default[:newrelic][:sidekiq][:uri] = "redis://#{node[:db_host]}/0"
 default[:newrelic][:sidekiq][:namespace] = "sq"
 default[:newrelic][:sidekiq][:app_name] = "barganto"
 default[:newrelic][:sidekiq][:user] = "deploy"
-
-# wikipedia example java plugin attributes
-default[:newrelic][:wikipedia_example_java][:version] = "2.0.0"
-default[:newrelic][:wikipedia_example_java][:download_url] = "https://github.com/newrelic-platform/newrelic_java_wikipedia_plugin/raw/master/dist/newrelic_wikipedia_plugin-#{node[:newrelic][:wikipedia_example_java][:version]}.tar.gz"
-default[:newrelic][:wikipedia_example_java][:install_path] = "/data/newrelic_plugins"
-default[:newrelic][:wikipedia_example_java][:plugin_path] = "#{node[:newrelic][:wikipedia_example_java][:install_path]}/newrelic_wikipedia_example_java_plugin"
 
 # wikipedia example ruby plugin attributes
 default[:newrelic][:wikipedia_example_ruby][:version] = "1.0.3"
