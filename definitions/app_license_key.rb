@@ -1,4 +1,4 @@
-define :app_license_key do
+define :app_license_key, app: nil do
 
   params[:app][:components].each do |component|
     if component[:collection]
