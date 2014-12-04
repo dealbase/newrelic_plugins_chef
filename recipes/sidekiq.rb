@@ -4,8 +4,11 @@ verify_ruby 'Sidekiq - Ruby Plugin'
 # check required attributes
 verify_attributes do
   attributes [
+                 'node[:newrelic][:sidekiq][:download_url]',
                  'node[:newrelic][:sidekiq][:install_path]',
                  'node[:newrelic][:sidekiq][:namespace]',
+                 'node[:newrelic][:sidekiq][:plugin_path]',
+                 'node[:newrelic][:sidekiq][:version]',
                  'node[:redis_yml][:app2redis_database]',
                  'node[:db_host]',
                  'node[:users]',
@@ -39,7 +42,7 @@ node[:engineyard][:environment][:apps].each do |app|
           plugin_version   node[:newrelic][:sidekiq][:version]
           install_path     node[:newrelic][:sidekiq][:install_path]
           plugin_path      node[:newrelic][:sidekiq][:plugin_path]
-          download_url     node[:newrelic][:sidekq][:download_url]
+          download_url     node[:newrelic][:sidekiq][:download_url]
           user             user[:username]
         end
 
