@@ -18,6 +18,7 @@ user = node[:users].first
 node[:engineyard][:environment][:apps].each do |app|
 
   app_name = app[:name]
+  license_key = nil
 
   app[:components].each do |component|
     if component[:collection]
