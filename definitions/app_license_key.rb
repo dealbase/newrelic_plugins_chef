@@ -2,14 +2,14 @@ define :app_license_key, app: nil do
   app = params[:app]
   return unless app
 
-  return if node[:newrelic][app[:name]] && node[:newrelic][app[:name]][:license_key]
+  node[:newrelic][app[:name]] ||= {}
+  return if node[:newrelic][app[:name]][:license_key]
 
   app[:components].each do |component|
     if component[:collection]
       component[:collection].each do |add_on|
         if add_on[:name] =~ /New Relic/
           license_key = add_on[:config][:vars][:license_key]
-          node[:newrelic][app[:name]] ||= {}
           node[:newrelic][app[:name]][:license_key] = license_key
           verify_license_key license_key
         end
@@ -17,6 +17,6 @@ define :app_license_key, app: nil do
     end
   end
 
-
+  node[:newrelic][app[:name]][:license_key] ||= nil
 
 end
