@@ -38,7 +38,7 @@ node[:engineyard][:environment][:apps].each do |app|
       action :create
       owner user
       group user
-      notifies :restart, 'service[newrelic-memcached-ruby-plugin]'
+      notifies :restart, "service[newrelic-memcached-ruby-plugin-#{app_name}]"
       variables({
                     :app_name => app_name,
                     :environment => node[:environment][:framework_env],
