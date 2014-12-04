@@ -1,8 +1,10 @@
 define :app_license_key, app: nil do
+  app = params[:app]
   return unless app
+
   return if node[:newrelic][app[:name]] && node[:newrelic][app[:name]][:license_key]
 
-  params[:app][:components].each do |component|
+  app[:components].each do |component|
     if component[:collection]
       component[:collection].each do |add_on|
         if add_on[:name] =~ /New Relic/
