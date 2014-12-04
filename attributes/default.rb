@@ -52,7 +52,7 @@ default[:newrelic][:sidekiq][:plugin_path] = "#{node[:newrelic][:sidekiq][:insta
 default[:newrelic][:sidekiq][:uri] = "redis://#{node[:db_host]}/0"
 default[:newrelic][:sidekiq][:namespace] = "sq"
 default[:newrelic][:sidekiq][:app_name] = "barganto"
-
+default[:newrelic][:sidekiq][:user] = "deploy"
 
 # wikipedia example java plugin attributes
 default[:newrelic][:wikipedia_example_java][:version] = "2.0.0"

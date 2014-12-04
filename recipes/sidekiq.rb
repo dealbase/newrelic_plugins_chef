@@ -4,11 +4,12 @@ verify_ruby 'Sidekiq - Ruby Plugin'
 # check required attributes
 verify_attributes do
   attributes [
-                 'node[:newrelic][:license_key]',
+                 'node[:newrelic_key]',
                  'node[:newrelic][:sidekiq][:install_path]',
-                 'node[:newrelic][:sidekiq][:name]',
+                 'node[:newrelic][:sidekiq][:app_name]',
                  'node[:newrelic][:sidekiq][:uri]',
-                 'node[:newrelic][:sidekiq][:namespace]'
+                 'node[:newrelic][:sidekiq][:namespace]',
+                 'node[:newrelic][:sidekiq][:user]'
              ]
 end
 
