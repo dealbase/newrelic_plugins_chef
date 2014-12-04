@@ -11,7 +11,7 @@ verify_attributes do
   ]
 end
 
-user = node[:users].first
+user = node[:users].first[:username]
 
 install_plugin 'newrelic_memcached_ruby_plugin' do
   plugin_version   node[:newrelic][:memcached_ruby][:version]
