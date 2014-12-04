@@ -1,0 +1,18 @@
+newrelic:
+  license_key: '<%= node[:newrelic_key] %>'
+  #
+  # Set to '1' for verbose output, remove for normal output.
+  # All output goes to stdout/stderr.
+  #
+  #verbose: 1
+
+
+#
+# Agent Configuration:
+#
+agents:
+  sidekiq:
+    -
+      name: '<%= @app_name %>'
+      uri: '<%= @uri %>'
+      namespace: '<%= @namespace %>'
