@@ -7,14 +7,19 @@ verify_attributes do
                  'node[:newrelic][:sidekiq][:install_path]',
                  'node[:newrelic][:sidekiq][:namespace]',
                  'node[:redis_yml][:app2redis_database]',
-                 'node[:db_host]'
+                 'node[:db_host]',
+                 'node[:users]',
+                 'node[:apps]'
              ]
 end
 
-node[:applications].each do |app_name,data|
-  user = node[:users].first
+user = node[:users].first
 
-  data[:components].each do |component|
+node[:apps].each do |app|
+
+  app_name = app[:name]
+
+  app[:components].each do |component|
     if component[:collection]
       component[:collection].each do |add_on|
         if add_on[:name] =~ /New Relic/
