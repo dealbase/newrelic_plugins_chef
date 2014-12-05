@@ -1,3 +1,7 @@
+ey_cloud_report "newrelic-memcached-agent" do
+  message "Setting up NewRelic memcached agent"
+end
+
 # verify ruby dependency
 verify_ruby 'Memcached - Ruby Plugin'
 

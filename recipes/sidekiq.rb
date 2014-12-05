@@ -1,3 +1,7 @@
+ey_cloud_report "newrelic-sidekiq-agent" do
+  message "Setting up NewRelic sidekiq agent"
+end
+
 # verify ruby dependency
 verify_ruby 'Sidekiq - Ruby Plugin'
 
