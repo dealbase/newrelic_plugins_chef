@@ -41,6 +41,12 @@ node[:engineyard][:environment][:apps].each do |app|
           user             user[:username]
         end
 
+        # reload monit
+        execute "restart-newrelic-sidekiq-agent-for-#{app_name}" do
+          command "monit reload && sleep 1 && monit restart all -g <%= @app_name %>_sidekiq_newrelic_agent"
+          action :nothing
+        end
+
         # newrelic template
         template "#{node[:newrelic][:sidekiq][:plugin_path]}/config/newrelic_plugin.yml" do
           source 'sidekiq/newrelic_plugin.yml.erb'
@@ -74,12 +80,6 @@ node[:engineyard][:environment][:apps].each do |app|
         #   user            user[:username]
         #   run_command     'bundle exec'
         # end
-
-        # reload monit
-        execute "restart-newrelic-sidekiq-agent-for-#{app_name}" do
-          command "monit reload && sleep 1 && monit restart all -g <%= @app_name %>_sidekiq_newrelic_agent"
-          action :nothing
-        end
 
         # monit
         template "/etc/monit.d/newrelic_sidekiq_agent_#{app_name}.monitrc" do
