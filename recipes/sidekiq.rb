@@ -48,7 +48,8 @@ node[:engineyard][:environment][:apps].each do |app|
           owner user[:username]
           group user[:username]
           mode 0744
-          notifies :restart, "service[newrelic-sidekiq-plugin-#{app_name}]"
+          #notifies :restart, "service[newrelic-sidekiq-plugin-#{app_name}]"
+          notifies :run, resources(:execute => "restart-newrelic-sidekiq-agent-for-#{app_name}")
           variables({
                         :app_name => app_name,
                         :environment => node[:environment][:framework_env],
