@@ -84,7 +84,7 @@ node[:engineyard][:environment][:apps].each do |app|
         # monit
         template "/etc/monit.d/newrelic_sidekiq_agent_#{app_name}.monitrc" do
           mode 0644
-          source "sidekiq.monitrc.erb"
+          source "newrelic_sidekiq_agent.monitrc.erb"
           backup false
           variables({
                         :app_name => app_name,
