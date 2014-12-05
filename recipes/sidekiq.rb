@@ -61,13 +61,33 @@ node[:engineyard][:environment][:apps].each do |app|
         end
 
         # install init.d script and start service
-        plugin_service "newrelic-sidekiq-plugin-#{app_name}" do
-          daemon          './newrelic_sidekiq_agent'
-          daemon_dir      node[:newrelic][:sidekiq][:plugin_path]
-          plugin_name     'Sidekiq'
-          plugin_version  node[:newrelic][:sidekiq][:version]
-          user            user[:username]
-          run_command     'bundle exec'
+        # plugin_service "newrelic-sidekiq-plugin-#{app_name}" do
+        #   daemon          './newrelic_sidekiq_agent'
+        #   daemon_dir      node[:newrelic][:sidekiq][:plugin_path]
+        #   plugin_name     'Sidekiq'
+        #   plugin_version  node[:newrelic][:sidekiq][:version]
+        #   user            user[:username]
+        #   run_command     'bundle exec'
+        # end
+
+        # reload monit
+        execute "restart-newrelic-sidekiq-agent-for-#{app_name}" do
+          command "monit reload && sleep 1 && monit restart all -g <%= @app_name %>_sidekiq_newrelic_agent"
+          action :nothing
+        end
+
+        # monit
+        template "/etc/monit.d/newrelic_sidekiq_agent_#{app_name}.monitrc" do
+          mode 0644
+          source "sidekiq.monitrc.erb"
+          backup false
+          variables({
+                        :app_name => app_name,
+                        :rails_env => node[:environment][:framework_env],
+                        :plugin_path => node[:newrelic][:sidekiq][:plugin_path],
+                        :memory_limit => 200 # MB
+                    })
+          notifies :run, resources(:execute => "restart-newrelic-sidekiq-agent-for-#{app_name}")
         end
     end
   end
