@@ -43,7 +43,7 @@ node[:engineyard][:environment][:apps].each do |app|
 
         # reload monit
         execute "restart-newrelic-sidekiq-agent-for-#{app_name}" do
-          command "monit reload && sleep 1 && monit restart all -g <%= @app_name %>_sidekiq_newrelic_agent"
+          command "monit reload && sleep 1 && monit restart all -g #{app_name}_sidekiq_newrelic_agent"
           action :nothing
         end
 
