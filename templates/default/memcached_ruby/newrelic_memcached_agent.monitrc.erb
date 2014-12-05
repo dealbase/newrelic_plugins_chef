@@ -1,5 +1,5 @@
 check process newrelic_memcached_agent_<%= @app_name %>
-with pidfile /var/run/engineyard/newrelic_agent/memcached_<%= @app_name %>.pid
+with pidfile /var/run/newrelic-memcached-ruby-plugin-<%= @app_name %>.pid
 start program = "<%= @plugin_path %>/newrelic_memcached_agent.daemon start" with timeout 90 seconds
 stop program = "<%= @plugin_path %>/newrelic_memcached_agent.daemon stop" with timeout 90 seconds
 if totalmem is greater than <%= @memory_limit %> MB for 2 cycles then restart
