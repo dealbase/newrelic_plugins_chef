@@ -74,7 +74,7 @@ node[:engineyard][:environment][:apps].each do |app|
         # monit
         template "/etc/monit.d/newrelic_postgres_agent_#{app_name}.monitrc" do
           mode 0644
-          source "memcached_ruby/newrelic_postgres_agent.monitrc.erb"
+          source "postgres/newrelic_postgres_agent.monitrc.erb"
           backup false
           variables({
                         :app_name => app_name,
