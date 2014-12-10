@@ -26,6 +26,12 @@ default[:newrelic][:memcached_ruby][:download_url] = "https://github.com/newreli
 default[:newrelic][:memcached_ruby][:install_path] = default[:newrelic][:plugins][:install_path]
 default[:newrelic][:memcached_ruby][:plugin_path] = "#{node[:newrelic][:memcached_ruby][:install_path]}/memcached_ruby"
 
+# postgres plugin attributes
+default[:newrelic][:postgres][:version] = "master"
+default[:newrelic][:postgres][:download_url] = "https://github.com/GoBoundless/newrelic_postgres_plugin/archive/#{node[:newrelic][:postgres][:version]}.tar.gz"
+default[:newrelic][:postgres][:install_path] = default[:newrelic][:plugins][:install_path]
+default[:newrelic][:postgres][:plugin_path] = "#{node[:newrelic][:postgres][:install_path]}/postgres"
+
 # sidekiq plugin attributes
 default[:newrelic][:sidekiq][:version] = "1.1.0"
 default[:newrelic][:sidekiq][:download_url] = "https://github.com/secondimpression/newrelic_sidekiq_agent/archive/v#{node[:newrelic][:sidekiq][:version]}.tar.gz"

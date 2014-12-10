@@ -13,7 +13,9 @@ newrelic:
 #
 agents:
   memcached:
+  <% @server_names.each do |host| %>
     -
-      name: '<%= "#{@app_name} #{@environment}" %>'
-      endpoint: 'localhost'
+      name: '<%= "#{@app_name} #{@environment} #{host}" %>'
+      endpoint: <%= "#{host}" %>
       port: 11211
+  <% end %>  -

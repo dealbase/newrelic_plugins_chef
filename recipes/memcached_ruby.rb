@@ -34,10 +34,10 @@ node[:engineyard][:environment][:apps].each do |app|
   end
   license_key = node[:newrelic][app_name][:license_key]
 
-  if license_key
+  if license_key && node[:members] && node[:members].any?
 
     case node[:instance_role]
-      when "solo", "app", "app_master"
+      when "solo", "app_master"
 
         # reload monit
         execute "restart-newrelic-memcached-agent-for-#{app_name}" do
@@ -56,7 +56,8 @@ node[:engineyard][:environment][:apps].each do |app|
           variables({
                         :app_name => app_name,
                         :environment => node[:environment][:framework_env],
-                        :license_key => license_key
+                        :license_key => license_key,
+                        :server_names => node[:members]
                     })
         end
 
