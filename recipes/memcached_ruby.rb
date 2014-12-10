@@ -12,7 +12,6 @@ verify_attributes do
     'node[:newrelic][:memcached_ruby][:install_path]',
     'node[:newrelic][:memcached_ruby][:plugin_path]',
     'node[:newrelic][:memcached_ruby][:version]',
-    'node[:members]',
     'node[:environment][:framework_env]'
   ]
 end
