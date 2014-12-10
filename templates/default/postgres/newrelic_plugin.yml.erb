@@ -1,0 +1,17 @@
+newrelic:
+  license_key: '<%= @license_key %>'
+  #
+  # Set to '1' for verbose output, remove for normal output.
+  # All output goes to stdout/stderr.
+  #
+  # verbose: 1
+
+agents:
+  postgres:
+    host: '<%= @host %>'
+    port: 5432
+    user: '<%= @username %>'
+    password: '<%= @password %>'
+    dbname: '<%= @db_name %>'
+    sslmode: 'require' # (disable|allow|prefer|require)
+    label: '<%= @app_name %> <%= @environment %> DB' # This label is optional and will default to the server hostname - it shows up in the NewRelic Web UI
