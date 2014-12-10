@@ -12,6 +12,7 @@ verify_attributes do
     'node[:newrelic][:memcached_ruby][:install_path]',
     'node[:newrelic][:memcached_ruby][:plugin_path]',
     'node[:newrelic][:memcached_ruby][:version]',
+    'node[:members]',
     'node[:environment][:framework_env]'
   ]
 end
@@ -34,7 +35,7 @@ node[:engineyard][:environment][:apps].each do |app|
   end
   license_key = node[:newrelic][app_name][:license_key]
 
-  if license_key
+  if license_key && node[:members] && node[:members].any?
 
     case node[:instance_role]
       when "solo", "app_master"
