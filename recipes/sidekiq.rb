@@ -13,7 +13,7 @@ verify_attributes do
                  'node[:newrelic][:sidekiq][:namespace]',
                  'node[:newrelic][:sidekiq][:plugin_path]',
                  'node[:newrelic][:sidekiq][:version]',
-                 'node[:redis_yml][:app2redis_database]',
+                 'node[:redis_yml][:databases]',
                  'node[:db_host]',
                  'node[:users]',
                  'node[:engineyard][:environment][:apps]',
@@ -59,7 +59,7 @@ node[:engineyard][:environment][:apps].each do |app|
           variables({
                         :app_name => app_name,
                         :environment => node[:environment][:framework_env],
-                        :uri => "redis://#{node[:db_host]}/#{node[:redis_yml][:app2redis_database][app_name]}",
+                        :uri => "redis://#{node[:db_host]}/#{node[:redis_yml][:databases][:sidekiq]}",
                         :namespace => node[:newrelic][:sidekiq][:namespace],
                         :license_key => license_key
                     })
