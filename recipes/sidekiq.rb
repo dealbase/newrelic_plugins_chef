@@ -13,7 +13,9 @@ verify_attributes do
                  'node[:newrelic][:sidekiq][:namespace]',
                  'node[:newrelic][:sidekiq][:plugin_path]',
                  'node[:newrelic][:sidekiq][:version]',
-                 'node[:redis_yml][:databases]',
+                 "node[:redis_yml][#{node[:environment][:framework_env]}][:sidekiq]",
+                 "node[:redis_yml][#{node[:environment][:framework_env]}][:sidekiq][:hostname]",
+                 "node[:redis_yml][#{node[:environment][:framework_env]}][:sidekiq][:port]",
                  'node[:db_host]',
                  'node[:users]',
                  'node[:engineyard][:environment][:apps]',
@@ -28,6 +30,7 @@ node[:engineyard][:environment][:apps].each do |app|
   app_name = app[:name]
   app_license_key app
   license_key = node[:newrelic][app_name][:license_key]
+  rails_env = node[:environment][:framework_env]
 
   if license_key
 
@@ -59,7 +62,7 @@ node[:engineyard][:environment][:apps].each do |app|
           variables({
                         :app_name => app_name,
                         :environment => node[:environment][:framework_env],
-                        :uri => "redis://#{node[:db_host]}/#{node[:redis_yml][:databases][:sidekiq]}",
+                        :uri => "redis://#{node[:redis_yml][rails_env][:sidekiq][:hostname]}:#{node[:redis_yml][rails_env][:sidekiq][:port]}/0}",
                         :namespace => node[:newrelic][:sidekiq][:namespace],
                         :license_key => license_key
                     })
