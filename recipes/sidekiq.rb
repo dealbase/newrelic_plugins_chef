@@ -15,7 +15,7 @@ verify_attributes do
                  'node[:newrelic][:sidekiq][:namespace]',
                  'node[:newrelic][:sidekiq][:plugin_path]',
                  'node[:newrelic][:sidekiq][:version]',
-                 "node[:redis_yml][#{rails_env}][:sidekiq]",
+                 #"node[:redis_yml][#{rails_env}][:sidekiq]",
                  #"node[:redis_yml][#{rails_env}][:sidekiq][:hostname]",
                  #"node[:redis_yml][#{rails_env}][:sidekiq][:port]",
                  'node[:users]',
