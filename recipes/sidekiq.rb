@@ -5,6 +5,8 @@ end
 # verify ruby dependency
 verify_ruby 'Sidekiq - Ruby Plugin'
 
+rails_env = node[:environment][:framework_env]
+
 # check required attributes
 verify_attributes do
   attributes [
@@ -13,10 +15,9 @@ verify_attributes do
                  'node[:newrelic][:sidekiq][:namespace]',
                  'node[:newrelic][:sidekiq][:plugin_path]',
                  'node[:newrelic][:sidekiq][:version]',
-                 "node[:redis_yml][#{node[:environment][:framework_env]}][:sidekiq]",
-                 "node[:redis_yml][#{node[:environment][:framework_env]}][:sidekiq][:hostname]",
-                 "node[:redis_yml][#{node[:environment][:framework_env]}][:sidekiq][:port]",
-                 'node[:db_host]',
+                 "node[:redis_yml][#{rails_env}][:sidekiq]",
+                 #"node[:redis_yml][#{rails_env}][:sidekiq][:hostname]",
+                 #"node[:redis_yml][#{rails_env}][:sidekiq][:port]",
                  'node[:users]',
                  'node[:engineyard][:environment][:apps]',
                  'node[:environment][:framework_env]'
@@ -30,7 +31,6 @@ node[:engineyard][:environment][:apps].each do |app|
   app_name = app[:name]
   app_license_key app
   license_key = node[:newrelic][app_name][:license_key]
-  rails_env = node[:environment][:framework_env]
 
   if license_key
 
