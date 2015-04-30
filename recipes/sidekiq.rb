@@ -62,7 +62,7 @@ node[:engineyard][:environment][:apps].each do |app|
           variables({
                         :app_name => app_name,
                         :environment => node[:environment][:framework_env],
-                        :uri => "redis://#{node[:redis_yml][rails_env][:sidekiq][:hostname]}:#{node[:redis_yml][rails_env][:sidekiq][:port]}/0}",
+                        :uri => "redis://#{node[:redis_yml][rails_env][:sidekiq][:hostname]}:#{node[:redis_yml][rails_env][:sidekiq][:port]}/0",
                         :namespace => node[:newrelic][:sidekiq][:namespace],
                         :license_key => license_key
                     })
