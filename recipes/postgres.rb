@@ -13,7 +13,7 @@ verify_attributes do
                  'node[:newrelic][:postgres][:plugin_path]',
                  'node[:newrelic][:postgres][:version]',
                  'node[:environment][:framework_env]',
-                 'node[:db_host]',
+                 "node[:database_yml][#{node[:environment][:framework_env]}][:host]",
                  'node[:users]'
              ]
 end
@@ -59,7 +59,7 @@ node[:engineyard][:environment][:apps].each do |app|
                         :app_name => app_name,
                         :environment => node[:environment][:framework_env],
                         :license_key => license_key,
-                        :host => node[:db_host],
+                        :host => node[:database_yml][node[:environment][:framework_env]][:host],
                         :db_name => app[:database_name],
                         :username => user[:username],
                         :password => user[:password]
